@@ -1,0 +1,32 @@
+<apex:page controller="SearchFromURLController">
+    <apex:form >
+        
+        <!-- the search criteria block -->
+        <apex:pageBlock title="Criteria" id="pb">
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name"/>
+                    <apex:inputText value="{!name}"/>
+                </apex:pageBlockSectionItem>
+                <apex:commandButton value="Go" action="{!executeSearch}"/>
+            </apex:pageBlockSection>
+            
+            <!-- results block - conditionally rendered if a search has been executed -->
+            <apex:outputPanel rendered="{!searched}" id="accTable">
+                <apex:pageBlockSection id="pbsTable">
+                    <apex:pageBlockTable value="{!accounts}" var="account">
+                        <apex:column value="{!account.name}" />
+                        <apex:column value="{!account.industry}" />
+                        <apex:column value="{!account.type}" />
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:outputPanel> 
+            
+            <apex:outputPanel rendered="{!searchedFail}" id="errMsg">
+                <apex:pageBlockSection id="pbsErr">
+                    <b>No Account found with Searched Name...</b>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
